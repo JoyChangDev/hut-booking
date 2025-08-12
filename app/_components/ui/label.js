@@ -1,9 +1,4 @@
-import {
-  Stack,
-  Input,
-  Field,
-  Grid,
-} from '@chakra-ui/react';
+import { Field } from '@chakra-ui/react';
 
 export default function Label({
   text,

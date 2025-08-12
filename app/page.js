@@ -7,10 +7,11 @@ export default function Home() {
     <Center m="100px 20px">
       <Box
         w="100%"
-        maxW={{ lg: '960px' }}
+        maxW="500px"
         h="auto"
         border="1px solid #0891b2"
         rounded="10px"
+        shadow="md"
       >
         <CreditCard />
       </Box>
