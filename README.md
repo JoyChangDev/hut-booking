@@ -1,17 +1,17 @@
 ### 2 payment
 
-[ ] input value format (ex. number, yy/mm)  
-[ ] input validate  
-[ ] input submit  
-[ ] TapPay
+- [x] input value format (ex. number, yy/mm)
+- [ ] input validate
+- [ ] input submit
+- [ ] TapPay
 
 ### 1 booking
 
-[ ] hut card
-[ ] guest list
-[ ] stepper
-[ ] zustand
+- [ ] hut card
+- [ ] guest list
+- [ ] stepper
+- [ ] zustand
 
 ### 3 complete
 
-[ ] booking summary
+- [ ] booking summary

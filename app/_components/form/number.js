@@ -4,7 +4,18 @@ import Input from '@/app/_components/ui/input';
 import Label from '@/app/_components/ui/label';
 
 export default function Number() {
+  const name = 'number';
+
   const { register } = useFormContext();
+  const { ref, onChange, onBlur } = register(name, {
+    required: '請出入信用卡號',
+    setValueAs: (value) => value.replace(/\D/g, ''), // 驗證前先更新資料
+  });
+
+  const handleChange = (e) => {
+    e.target.value = formatNumber(e.target.value);
+    onChange(e);
+  };
 
   return (
     <Label
@@ -12,9 +23,22 @@ export default function Number() {
       text="卡號"
     >
       <Input
+        ref={ref}
+        name={name}
+        onChange={handleChange}
+        onBlur={onBlur}
         placeholder="0000 - 0000 - 0000 - 0000"
-        {...register('number', { require: true })}
+        autoComplete="cc-number"
+        inputMode="numeric"
       />
     </Label>
   );
 }
+
+// 轉換格式為 0000 - 0000 - 0000 - 0000
+const formatNumber = (value) =>
+  value
+    .replace(/\D/g, '')
+    .slice(0, 16)
+    .match(/.{1,4}/g)
+    ?.join(' - ') ?? '';

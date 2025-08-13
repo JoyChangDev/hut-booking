@@ -1,8 +1,10 @@
 import { Input as ChakraInput } from '@chakra-ui/react';
+import { forwardRef } from 'react';
 
-export default function Input(props) {
+const Input = forwardRef(function Input(props, ref) {
   return (
     <ChakraInput
+      ref={ref}
       border="1px solid #e4e4e7"
       _hover={{ border: '1px solid #06b6d4' }}
       _focus={{
@@ -14,4 +16,6 @@ export default function Input(props) {
       {...props}
     />
   );
-}
+});
+
+export default Input;
