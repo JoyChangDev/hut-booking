@@ -6,10 +6,17 @@ import Label from '@/app/_components/ui/label';
 export default function Number() {
   const name = 'number';
 
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   const { ref, onChange, onBlur } = register(name, {
-    required: '請出入信用卡號',
+    required: '請輸入信用卡號',
     setValueAs: (value) => value.replace(/\D/g, ''), // 驗證前先更新資料
+    pattern: {
+      value: /^\d{16}$/,
+      message: '請檢查輸入 16 位數字',
+    },
   });
 
   const handleChange = (e) => {
@@ -21,6 +28,8 @@ export default function Number() {
     <Label
       required={true}
       text="卡號"
+      errStatus={!!errors[name]}
+      errMsg={errors[name]?.message}
     >
       <Input
         ref={ref}

@@ -6,11 +6,21 @@ import Label from '@/app/_components/ui/label';
 export default function Name() {
   const name = 'name';
 
-  const { register } = useFormContext();
-  const { ref, onChange, onBlur } = register(name);
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
+  const { ref, onChange, onBlur } = register(name, {
+    required: '請輸入持卡者姓名',
+  });
 
   return (
-    <Label text="持卡者姓名">
+    <Label
+      required={true}
+      text="持卡者姓名"
+      errStatus={!!errors[name]}
+      errMsg={errors[name]?.message}
+    >
       <Input
         ref={ref}
         name={name}

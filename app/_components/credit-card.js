@@ -9,7 +9,10 @@ import Expiration from '@/app/_components/form/expiration';
 import Ccv from '@/app/_components/form/ccv';
 
 export default function CreditCard() {
-  const methods = useForm();
+  const methods = useForm({
+    mode: 'onSubmit',
+    reValidateMode: 'onBlur',
+  });
 
   const onSubmit = methods.handleSubmit((data) =>
     console.log(data)
@@ -17,7 +20,10 @@ export default function CreditCard() {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={onSubmit}>
+      <form
+        onSubmit={onSubmit}
+        noValidate
+      >
         <Stack
           p="16px"
           gap="20px"

@@ -1,7 +1,7 @@
 ### 2 payment
 
 - [x] input value format (ex. number, yy/mm)
-- [ ] input validate
+- [x] input validate
 - [ ] input submit
 - [ ] TapPay
 

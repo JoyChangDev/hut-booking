@@ -6,9 +6,16 @@ import Label from '@/app/_components/ui/label';
 export default function Ccv() {
   const name = 'ccv';
 
-  const { register } = useFormContext();
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext();
   const { ref, onChange, onBlur } = register(name, {
     required: '請輸入安全碼',
+    pattern: {
+      value: /^\d{3}$/,
+      message: '請檢查輸入 3 位數字',
+    },
   });
 
   const handleChange = (e) => {
@@ -20,6 +27,8 @@ export default function Ccv() {
     <Label
       required={true}
       text="安全碼"
+      errStatus={!!errors[name]}
+      errMsg={errors[name]?.message}
     >
       <Input
         ref={ref}
