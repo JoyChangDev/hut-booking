@@ -1,6 +1,12 @@
 'use client';
 
-import { Stack, Grid, Button } from '@chakra-ui/react';
+import { useEffect, useRef } from 'react';
+import {
+  Stack,
+  Grid,
+  Button,
+  Input,
+} from '@chakra-ui/react';
 import { useForm, FormProvider } from 'react-hook-form';
 
 import Name from '@/app/_components/form/name';
@@ -9,14 +15,56 @@ import Expiration from '@/app/_components/form/expiration';
 import Ccv from '@/app/_components/form/ccv';
 
 export default function CreditCard() {
+  const TPDirect = window.TPDirect;
+
+  const numberRef = useRef(null);
+  const expiryRef = useRef(null);
+  const ccvRef = useRef(null);
+
   const methods = useForm({
     mode: 'onSubmit',
     reValidateMode: 'onBlur',
+    defaultValues: {
+      name: 'DDD',
+      number: '4242 - 4242 - 4242 - 4242',
+      expirationDate: '05 / 30',
+      ccv: '555',
+    },
   });
+  const values = methods.watch();
 
-  const onSubmit = methods.handleSubmit((data) =>
-    console.log(data)
-  );
+  useEffect(() => {
+    if (
+      !numberRef.current ||
+      !expiryRef.current ||
+      !ccvRef.current
+    )
+      return;
+
+    TPDirect.card.setup({
+      fields: {
+        number: { element: numberRef.current },
+        expirationDate: { element: expiryRef.current },
+        ccv: { element: ccvRef.current },
+      },
+      styles: {
+        '.valid': { 'color': 'green' },
+        '.invalid': { 'color': 'red' },
+      },
+    });
+    // TPDirect.card.onUpdate(function (update) {
+    //   console.log('update: ', update);
+    // });
+  }, [numberRef, expiryRef, ccvRef, TPDirect]);
+
+  const onSubmit = methods.handleSubmit(async (data) => {
+    console.log('handleSubmit:', data);
+    console.log('numberRef: ', numberRef.current);
+    console.log('expiryRef: ', expiryRef.current);
+    console.log('ccvRef: ', ccvRef.current);
+    const res = TPDirect.card.getTappayFieldsStatus();
+    console.log('res: ', res);
+  });
 
   return (
     <FormProvider {...methods}>
@@ -55,6 +103,24 @@ export default function CreditCard() {
           </Button>
         </Stack>
       </form>
+
+      <Stack display="none">
+        <Input
+          readOnly
+          ref={numberRef}
+          value={values.number || ''}
+        />
+        <Input
+          readOnly
+          ref={expiryRef}
+          value={values.expirationDate || ''}
+        />
+        <Input
+          readOnly
+          ref={ccvRef}
+          value={values.ccv || ''}
+        />
+      </Stack>
     </FormProvider>
   );
 }
