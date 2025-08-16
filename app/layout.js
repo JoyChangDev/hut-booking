@@ -1,7 +1,4 @@
-import Script from 'next/script';
-
 import ChakraProvider from '@/app/_components/chakra';
-import TapPay from '@/app/_components/tap-pay';
 
 export const metadata = {
   title: 'Create Next App',
@@ -13,12 +10,6 @@ export default function RootLayout({ children }) {
     <html suppressHydrationWarning>
       <body>
         <ChakraProvider>{children}</ChakraProvider>
-        <Script
-          src="https://code.jquery.com/jquery-3.2.1.min.js"
-          integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-          crossorigin="anonymous"
-        ></Script>
-        <TapPay />
       </body>
     </html>
   );

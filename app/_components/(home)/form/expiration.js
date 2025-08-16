@@ -51,14 +51,14 @@ const formatInput = (value) =>
     ?.join(' / ') ?? '';
 
 const formatValidation = (value) => {
-  return (
-    '20' +
-    value
-      .split('/')
-      .map((s) => s.trim())
-      .reverse()
-      .join('')
-  );
+  return value.includes('/')
+    ? '20' +
+        value
+          .split('/')
+          .map((s) => s.trim())
+          .reverse()
+          .join('')
+    : '';
 };
 
 const validate = (value) => {
