@@ -2,6 +2,7 @@
 import { Box, Center, Stack } from '@chakra-ui/react';
 import { useForm, FormProvider } from 'react-hook-form';
 
+import Card from '@/app/_components/ui/card';
 import CreditCard from '@/app/_components/(home)/credit-card';
 import ReadOnly from '@/app/_components/(home)/form/read-only';
 
@@ -23,39 +24,27 @@ export default function Home() {
 
   return (
     <Center m="100px 20px">
-      <FormProvider {...methods}>
-        <form
-          onSubmit={onSubmit}
-          noValidate
-        >
-          <Stack
-            w="100%"
-            maxW="500px"
-            h="auto"
-            gap="20px"
+      <Box
+        w="100%"
+        maxW="400px"
+        h="auto"
+      >
+        <FormProvider {...methods}>
+          <form
+            onSubmit={onSubmit}
+            noValidate
           >
-            <Card>
-              <CreditCard />
-            </Card>
-            <Card>
-              <ReadOnly />
-            </Card>
-          </Stack>
-        </form>
-      </FormProvider>
+            <Stack gap="20px">
+              <Card>
+                <CreditCard />
+              </Card>
+              <Card>
+                <ReadOnly />
+              </Card>
+            </Stack>
+          </form>
+        </FormProvider>
+      </Box>
     </Center>
   );
 }
-
-const Card = ({ children }) => {
-  return (
-    <Box
-      border="1px solid #0891b2"
-      rounded="10px"
-      p="16px"
-      shadow="md"
-    >
-      {children}
-    </Box>
-  );
-};
